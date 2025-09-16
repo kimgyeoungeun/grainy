@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang=ko>
+<head>
+<meta charset=UTF-8>
+<meta name=viewport content="width=device-width, initial-scale=1.0">
+<title>Grainy</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');.bgm-hint{position:absolute;left:50%;bottom:50px;transform:translateX(-50%);font-size:1.2rem;font-weight:300;opacity:.5;text-shadow:0 0 5px rgba(0,0,0,0.8);letter-spacing:1px}@font-face{font-family:'Pretendard';src:url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Thin.woff') format('woff');font-weight:100;font-display:swap}@media(max-width:480px){.bgm-hint{bottom:50px;font-size:.8rem}}*{margin:0;padding:0;box-sizing:border-box;cursor:none!important}body{font-family:'pretendard',sans-serif;background-color:#030303;color:#fff;overflow-x:hidden;cursor:none!important;transition:opacity 1s ease;opacity:0}html{cursor:none!important}a,button,.case-item,.case-link,.case-media,.case-video,.case-image{cursor:none!important}spline-viewer{cursor:none!important}spline-viewer *{cursor:none!important}canvas{cursor:none!important}div,span,p,h1,h2,h3,h4,h5,h6{cursor:none!important}.container{width:100%;max-width:1800px;margin:0 auto;padding:0 2%}.intro-section{width:100%;height:100vh;position:relative;overflow:hidden;opacity:1;transition:opacity 2s ease;pointer-events:auto}spline-viewer{width:100%;height:100vh;display:block}.description-label{position:absolute;left:50px;bottom:50px;font-size:1.2rem;font-weight:300;opacity:.6;transition:opacity .3s ease}.click-anywhere{position:absolute;right:50px;bottom:50px;font-size:1.2rem;font-weight:300;opacity:.8;text-shadow:0 0 5px rgba(0,0,0,0.8)}.intro-description{position:absolute;bottom:90px;left:-800px;max-width:800px;text-align:left;font-weight:300;line-height:1.7;font-size:1.1rem;opacity:0;transition:left .5s ease,opacity .5s ease;text-shadow:0 0 5px rgba(0,0,0,0.8);background-color:rgba(0,0,0,0.5);padding:20px;border-radius:5px;pointer-events:none!important;border:none!important;box-shadow:none!important;outline:none!important}.intro-description.visible{left:50px;opacity:.9;border:none!important;box-shadow:none!important;outline:none!important}.intro-description,.intro-description *,.site-title{pointer-events:none!important;border:none!important;outline:none!important;box-shadow:none!important}.intro-description:hover,.intro-description *:hover,.site-title:hover{border:none!important;outline:none!important;box-shadow:none!important;background-color:rgba(0,0,0,0.5)!important;transform:none!important;filter:none!important;opacity:.9!important}.intro-description h1,.intro-description p,.intro-description h1:hover,.intro-description p:hover{border:none!important;outline:none!important;box-shadow:none!important;background:transparent!important;transform:none!important;filter:none!important}.site-title{font-size:2rem;font-weight:500;margin-bottom:.8rem;opacity:.9;border:none!important;outline:none!important;box-shadow:none!important}.cursor-dot{width:10px;height:10px;background-color:white;border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 10px 2px rgba(255,255,255,0.8)}.cursor-border{width:50px;height:50px;border:1px solid rgba(255,255,255,0.6);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s ease,height .2s ease,background-color .3s ease}.description-trigger{position:absolute;left:0;top:60%;width:600px;height:100%;z-index:10}@keyframes fadeIn{0%{opacity:0;transform:translateY(20px)}100%{opacity:.8;transform:translateY(0)}}@keyframes bounce{0%,20%,50%,80%,100%{transform:translateY(0)}40%{transform:translateY(-10px)}60%{transform:translateY(-5px)}}.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#000;opacity:0;z-index:9990;pointer-events:none;transition:opacity 1s ease}@media(max-width:480px){.intro-description{left:-100%;bottom:30px;max-width:calc(100% - 40px);font-size:.9rem}.intro-description.visible{left:20px}.site-title{font-size:1.5rem;margin-bottom:.5rem}.description-label{left:20px;bottom:30px}.click-anywhere{right:20px;bottom:30px;font-size:1rem}.description-trigger{width:80px}}</style>
+<script type=module src=https://unpkg.com/@splinetool/viewer@1.9.86/build/spline-viewer.js></script>
+</head>
+<body>
+<div class=cursor-dot></div>
+<div class=cursor-border></div>
+<div class=overlay id=overlay></div>
+<audio id=bgm loop preload=auto>
+<source src=./bgm/main.mp3 type=audio/mpeg>
+</audio>
+<section class=intro-section id=intro>
+<spline-viewer url=https://prod.spline.design/amQ2FEQbPTIK4-Mx/scene.splinecode></spline-viewer>
+<div class=description-trigger id=descriptionTrigger></div>
+<div class=description-label>EXPLANATION</div>
+<div class=bgm-hint>PRESS THE KEYBOARD</div>
+<div class=click-anywhere>CLICK ANYWHERE</div>
+<div class=intro-description id=introDescription>
+<h1 class=site-title>Grainy</h1>
+<p>
+흐릿하고 거칠지만, 분명히 존재하는 기억과 감정의 잔상.<br>
+시간이 흐를수록 선명했던 기억은 점점 거칠고 불분명해지지만, 그 결이 남아 우리 안에 머문다.<br>
+"Grainy"는 그런 흐려진 기억과 감정의 입자들을 포착하고,<br>
+그 순간의 질감과 온도를 조심스럽게 꺼내어 보여주는 사이트입니다.
+</p>
+</div>
+</section>
+<script>function resetPageState() {
+  const overlay = document.getElementById('overlay');
+  const cursorDot = document.querySelector('.cursor-dot');
+  const cursorBorder = document.querySelector('.cursor-border');
+  const bgm = document.getElementById('bgm');
+
+  if (overlay) {
+    overlay.style.opacity = '0';
+    overlay.style.pointerEvents = 'none';
+  }
+  if (cursorDot) cursorDot.style.opacity = '1';
+  if (cursorBorder) cursorBorder.style.opacity = '1';
+
+  if (bgm) {
+    bgm.pause();
+    bgm.currentTime = 0; // 항상 처음으로 리셋
+    bgm.volume = 1.0;
+  }
+
+  isNavigating = false;
+  bgmStarted = false; // 다시 스페이스바로만 재생
+}
+
+function fadeInBody() {
+  resetPageState();
+  document.body.style.opacity = '1';
+}
+
+window.addEventListener('load', fadeInBody);
+
+window.addEventListener('pageshow', (e) => {
+  resetPageState();
+  if (e.persisted) {
+    document.body.style.opacity = '0';
+    setTimeout(fadeInBody, 100);
+  } else {
+    fadeInBody();
+  }
+});
+
+window.addEventListener('beforeunload', () => {
+  const overlay = document.getElementById('overlay');
+  if (overlay) {
+    overlay.style.opacity = '0';
+    overlay.style.pointerEvents = 'none';
+  }
+});
+
+window.addEventListener('popstate', () => {
+  resetPageState();
+  document.body.style.opacity = '0';
+  setTimeout(fadeInBody, 50);
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  const introDescription = document.getElementById('introDescription');
+  const descriptionTrigger = document.getElementById('descriptionTrigger');
+
+  descriptionTrigger.addEventListener('mouseenter', () => {
+    introDescription.classList.add('visible');
+  });
+
+  descriptionTrigger.addEventListener('mouseleave', () => {
+    introDescription.classList.remove('visible');
+  });
+
+  function forceCursorNone() {
+    const allElements = document.querySelectorAll('*');
+    allElements.forEach(el => {
+      el.style.cursor = 'none';
+    });
+  }
+
+  forceCursorNone();
+
+  const splineViewer = document.querySelector('spline-viewer');
+  if (splineViewer) {
+    splineViewer.addEventListener('load', forceCursorNone);
+    const observer = new MutationObserver(() => {
+      forceCursorNone();
+    });
+    observer.observe(splineViewer, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['style']
+    });
+  }
+
+  setInterval(forceCursorNone, 1000);
+});
+
+const cursorDot = document.querySelector('.cursor-dot');
+const cursorBorder = document.querySelector('.cursor-border');
+const overlay = document.getElementById('overlay');
+const descriptionTrigger = document.getElementById('descriptionTrigger');
+let bgmStarted = false;
+let isNavigating = false;
+const bgm = document.getElementById('bgm');
+
+document.addEventListener('mousemove', (e) => {
+  cursorDot.style.left = e.clientX + 'px';
+  cursorDot.style.top = e.clientY + 'px';
+  document.body.style.cursor = 'none';
+  e.target.style.cursor = 'none';
+  setTimeout(() => {
+    cursorBorder.style.left = e.clientX + 'px';
+    cursorBorder.style.top = e.clientY + 'px';
+  }, 50);
+});
+
+// ✅ 스페이스바로 항상 0초부터 재생
+document.addEventListener('keydown', function(e) {
+  if (e.code === "Space" && !isNavigating) {
+    e.preventDefault(); // 기본 스크롤 방지
+    
+    // BGM이 현재 정지 상태인지 확인하여 재생
+    if (bgm.paused) {
+        bgm.pause(); // 혹시 모를 경우를 대비하여 다시 한번 멈춤
+        bgm.currentTime = 0; // 항상 처음부터 시작
+        bgm.play().then(() => {
+            bgmStarted = true;
+            console.log("BGM started");
+        }).catch(err => console.log("Audio play failed:", err));
+    }
+  }
+});
+
+document.addEventListener('mousedown', () => {
+  if (!isNavigating) {
+    cursorBorder.style.width = '45px';
+    cursorBorder.style.height = '45px';
+  }
+});
+
+document.addEventListener('mouseup', () => {
+  if (!isNavigating) {
+    cursorBorder.style.width = '50px';
+    cursorBorder.style.height = '50px';
+  }
+});
+
+document.addEventListener('click', function(e) {
+  if (isNavigating) return;
+  if (e.target === descriptionTrigger || descriptionTrigger.contains(e.target)) {
+    return;
+  }
+
+  isNavigating = true;
+  const targetUrl = "./now.html";
+  overlay.style.opacity = '1';
+  overlay.style.pointerEvents = 'auto';
+  cursorDot.style.opacity = '0';
+  cursorBorder.style.opacity = '0';
+
+  setTimeout(() => {
+    if (bgm && bgmStarted) {
+      let fadeAudio = setInterval(() => {
+        if (bgm.volume > 0.1) {
+          bgm.volume -= 0.1;
+        } else {
+          bgm.volume = 0;
+          bgm.pause();
+          clearInterval(fadeAudio);
+        }
+      }, 100);
+    }
+    window.location.href = targetUrl;
+  }, 1000);
+});
+</script>
+</body>
+</html>

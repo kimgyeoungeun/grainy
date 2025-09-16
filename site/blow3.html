@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang=ko>
+<head>
+<meta charset=UTF-8>
+<meta name=viewport content="width=device-width, initial-scale=1.0">
+<title>Hue of Heart</title>
+<style>@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');*{margin:0;padding:0;box-sizing:border-box;cursor:none!important}html,body{height:100%;overflow:hidden;background:#030303;font-family:'Pretendard',-apple-system,BlinkMacSystemFont,system-ui,Roboto,sans-serif;cursor:none!important}@media screen and (-webkit-min-device-pixel-ratio:1){*{cursor:none!important;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}}*:hover,*:focus,*:active,*:visited{cursor:none!important}body{display:flex;justify-content:center;align-items:center}body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiBmaWx0ZXI9InVybCgjYSkiIG9wYWNpdHk9Ii4wNSIvPjwvc3ZnPg==');z-index:9997;pointer-events:none;opacity:.15;mix-blend-mode:overlay}.container{position:relative;width:100vmin;height:100vmin;display:flex;justify-content:center;align-items:center}.orb{position:relative;width:80vmin;height:80vmin;transition:transform .5s cubic-bezier(0.23,1,0.32,1)}svg{position:absolute;width:100%;height:100%;overflow:visible;filter:url(#grain)}.grain-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");opacity:.07;pointer-events:none;z-index:10000;mix-blend-mode:overlay}.stars{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none;filter:url(#grain)}.star{position:absolute;width:2px;height:2px;background:white;border-radius:50%;animation:twinkle ease infinite;opacity:.7}@keyframes twinkle{0%,100%{opacity:.3;transform:scale(0.5)}50%{opacity:.8;transform:scale(1)}}.controls{position:fixed;bottom:20px;left:20px;z-index:100;display:flex;gap:10px}.control-btn{padding:8px 16px;background:rgba(255,255,255,0.1);border:0;border-radius:20px;color:white;cursor:none!important;font-family:sans-serif;transition:background .3s}.control-btn:hover{background:rgba(255,255,255,0.2)}.footer-text{position:fixed;bottom:20px;left:0;width:100%;text-align:center;color:#666;font-size:14px;font-family:'Pretendard',sans-serif;z-index:100;pointer-events:none}.cursor-dot{width:10px;height:10px;background-color:white;border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 10px 2px rgba(255,255,255,0.8)}.cursor-border{width:50px;height:50px;border:1px solid rgba(255,255,255,0.6);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s ease,height .2s ease}.navigation-bar{position:fixed;top:20px;left:20px;display:flex;align-items:center;z-index:1001;gap:20px}.back-container{display:flex;align-items:center}.back-button{display:flex;align-items:center;color:white;text-decoration:none;font-family:'Pretendard',sans-serif;font-size:14px;opacity:.7;transition:opacity .3s ease;padding:8px 12px;border-radius:20px}.back-button:hover{opacity:1}.icon-container{display:flex;align-items:center;justify-content:center;margin-right:6px}.back-icon{width:16px!important;height:16px!important;position:relative!important;filter:none!important;overflow:visible!important}.text-container{display:inline-block}.breadcrumb{font-family:'Pretendard',sans-serif;font-size:14px;color:rgba(255,255,255,0.6);display:flex;align-items:center;gap:8px}.breadcrumb a{color:rgba(255,255,255,0.6);text-decoration:none;transition:color .3s ease}.breadcrumb a:hover{color:rgba(255,255,255,0.9)}.separator{color:rgba(255,255,255,0.4)}.current-page{color:rgba(255,255,255,0.8)}.back-button:hover ~ .cursor-border{width:40px;height:40px;background-color:rgba(255,255,255,0.1)}a,.back-button{cursor:none!important}.side-navigation{position:fixed;right:20px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:20px;z-index:200}.nav-dot{width:12px;height:12px;border-radius:50%;background-color:rgba(255,255,255,0.3);cursor:none!important;position:relative;transition:all .3s ease}.nav-dot:hover,.nav-dot.active{background-color:rgba(255,255,255,0.9);transform:scale(1.2)}.dot-tooltip{position:absolute;right:24px;top:50%;transform:translateY(-50%);background-color:rgba(0,0,0,0.7);color:white;padding:5px 10px;border-radius:4px;font-size:12px;white-space:nowrap;opacity:0;visibility:hidden;transition:all .3s ease}.nav-dot:hover .dot-tooltip{opacity:1;visibility:visible;right:30px}.dot-tooltip::after{content:"";position:absolute;top:50%;right:-4px;transform:translateY(-50%) rotate(45deg);width:8px;height:8px;background-color:rgba(0,0,0,0.7)}@keyframes fadeIn{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:scale(1)}}.orb{position:relative;width:80vmin;height:80vmin;transition:transform .5s cubic-bezier(0.23,1,0.32,1);opacity:0;animation:fadeIn 1.5s ease-out forwards}body{opacity:0;animation:fadeIn 3s ease-out forwards}@keyframes fadeIn{from{opacity:0}to{opacity:1}}.interaction-guide{position:fixed;bottom:60px;left:0;width:100%;text-align:center;color:rgba(255,255,255,0.6);font-size:14px;font-family:'Pretendard',sans-serif;z-index:100;pointer-events:none;animation:pulse 2s ease-in-out infinite}@keyframes pulse{0%,100%{opacity:.4}50%{opacity:.8}}</style>
+</head>
+<body>
+<div class=interaction-guide id=interactionGuide>
+화면을 클릭해서 다양한 감정을 탐험해보세요.
+</div>
+<div class=side-navigation>
+<a href=./heart.html class=nav-dot>
+<span class=dot-tooltip>Part of Heart</span>
+</a>
+<a href=./blow3.html class="nav-dot active">
+<span class=dot-tooltip>HUE OF HEART</span>
+</a>
+</div>
+<div class=navigation-bar>
+<div class=back-container>
+<a href=javascript:history.back() class=back-button>
+<div class=icon-container>
+<svg xmlns=http://www.w3.org/2000/svg width=24 height=24 viewBox="0 0 24 24" fill=none stroke=currentColor stroke-width=2 stroke-linecap=round stroke-linejoin=round class=back-icon>
+<path d="M19 12H5M12 19l-7-7 7-7"/>
+</svg>
+</div>
+<div class=text-container>Back</div>
+</a>
+</div>
+<div class=breadcrumb>
+<a href=../now.html>Home</a>
+<span class=separator>/</span>
+<span class=current-page>HUE OF HEART</span>
+</div>
+</div>
+<div class=cursor-dot></div>
+<div class=cursor-border></div>
+<svg width=0 height=0 aria-hidden=true>
+<defs>
+<filter id=distort primitiveUnits=objectBoundingBox x=-50% y=-50% width=200% height=200%>
+<feTurbulence type=fractalNoise baseFrequency=.004 seed=5 numOctaves=5 />
+<feDisplacementMap in=SourceGraphic scale=.45 xChannelSelector=R yChannelSelector=G />
+</filter>
+<filter id=blobFilter x=-50% y=-50% width=200% height=200%>
+<feTurbulence type=turbulence baseFrequency=0.01 numOctaves=3 seed=10 stitchTiles=stitch />
+<feDisplacementMap in=SourceGraphic scale=50 xChannelSelector=R yChannelSelector=G />
+</filter>
+<filter id=liquidFilter x=-50% y=-50% width=200% height=200%>
+<feTurbulence type=fractalNoise baseFrequency=0.01 numOctaves=5 seed=15 />
+<feDisplacementMap in=SourceGraphic scale=90 xChannelSelector=R yChannelSelector=G />
+<feGaussianBlur stdDeviation=5 />
+</filter>
+<filter id=grain x=-50% y=-50% width=200% height=200%>
+<feTurbulence type=fractalNoise baseFrequency=0.85 numOctaves=3 stitchTiles=stitch result=noise />
+<feColorMatrix type=matrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.5 0" result=coloredNoise />
+<feComposite in=SourceGraphic in2=coloredNoise operator=arithmetic k1=1 k2=0.1 k3=0 k4=0 />
+<feDisplacementMap in=SourceGraphic in2=noise scale=3 xChannelSelector=R yChannelSelector=G />
+</filter>
+<filter id=glow x=-50% y=-50% width=200% height=200%>
+<feGaussianBlur stdDeviation=18 result=blur />
+<feComposite in=SourceGraphic in2=blur operator=over />
+</filter>
+<radialGradient id=mainGradient cx=0.5 cy=0.5 r=0.5 fx=0.25 fy=0.25>
+<stop offset=0% stop-color=#ff6cab />
+<stop offset=50% stop-color=#7366ff />
+<stop offset=100% stop-color=rgba(0,0,0,0) />
+</radialGradient>
+<radialGradient id=pulseGradient cx=0.5 cy=0.5 r=0.5>
+<stop offset=0% stop-color=#f630a0 />
+<stop offset=70% stop-color=#00ff54 />
+<stop offset=100% stop-color=rgba(0,0,0,0) />
+</radialGradient>
+</defs>
+</svg>
+<div class=stars></div>
+<div class=container>
+<div class=orb>
+<svg viewBox="-200 -200 400 400">
+<circle r=180 fill=url(#mainGradient) filter=url(#distort)>
+<animate attributeName=opacity values=0;1 dur=2s fill=freeze />
+</circle>
+<circle r=150 fill=url(#pulseGradient) filter=url(#glow) opacity=0>
+<animate attributeName=r values=150;160;150 dur=4s repeatCount=indefinite begin=1.5s />
+<animate attributeName=opacity values=0;0.7;0.9;0.7 dur=2s fill=freeze />
+</circle>
+</svg>
+</div>
+</div>
+<div class=grain-overlay></div>
+<div class=footer-text>
+우리의 다중적인 감정을 시각화 하였습니다.
+</div>
+<script>function resetPageState(){const cursorDot=document.querySelector('.cursor-dot');const cursorBorder=document.querySelector('.cursor-border');if(cursorDot){cursorDot.style.opacity='1';}
+if(cursorBorder){cursorBorder.style.opacity='1';}}
+function forceCursorNone(){const allElements=document.querySelectorAll('*');allElements.forEach(el=>{el.style.cursor='none';});}
+const gradients=[['#92FFC0','#002661'],['#F0DA4B','#FF005E'],['#ff661b','#ffcf1b'],['#f630a0','#ff9897'],['#e65eab','#7bf2e9'],['#FF3CAC','#562B7C'],['#6A5ACD','#FF6347'],['#ee4d5f','#ffcda5'],['#00ff54','#00b8ba'],['#FF1493','#1E90FF'],['#FFF6B7','#F6416C'],['#ff6cab','#7366ff'],['#6424f0','#6ee2f5'],['#8A2BE2','#FF4500'],['#FFF886','#F072B6'],['#8441a4','#ff5b94'],['#47C3FD','#950ECE'],['#9400D3','#00FF7F'],['#F9C1EB','#A991D3'],['#8a64eb','#64e8de'],['#7d77ff','#ff9482'],['#f869d5','#5650de'],['#F1CA74','#A64DB6'],['#00bd56','#f9fd50'],['#113035','#F3A332'],['#FFD26F','#3677FF'],['#3499ff','#3a3985'],['#FFDB01','#0E197D'],['#FFF6B7','#F6416C'],['#2e8de1','#b65eba'],['#8B008B','#00CED1'],['#F05F57','#360940'],['#BA55D3','#20B2AA'],['#9932CC','#7FCDBB'],['#FFF6B7','#0E197D'],['#9370DB','#F0E68C'],['#580C4A','#C68CAF'],['#8A4FFF','#4B0082']];const cursorDot=document.querySelector('.cursor-dot');const cursorBorder=document.querySelector('.cursor-border');document.addEventListener('mousemove',(e)=>{cursorDot.style.left=e.clientX+'px';cursorDot.style.top=e.clientY+'px';document.body.style.cursor='none';if(e.target)e.target.style.cursor='none';setTimeout(()=>{cursorBorder.style.left=e.clientX+'px';cursorBorder.style.top=e.clientY+'px';},50);});document.addEventListener('mousedown',()=>{cursorBorder.style.width='45px';cursorBorder.style.height='45px';});document.addEventListener('mouseup',()=>{cursorBorder.style.width='50px';cursorBorder.style.height='50px';});function animateGrain(){const grainOverlay=document.querySelector('.grain-overlay');let opacity=0.07;let increasing=true;setInterval(()=>{if(increasing){opacity+=0.002;if(opacity>=0.12)increasing=false;}else{opacity-=0.002;if(opacity<=0.06)increasing=true;}
+grainOverlay.style.opacity=opacity;},100);}
+function createStars(){const starsContainer=document.querySelector('.stars');const starCount=120;for(let i=0;i<starCount;i++){const star=document.createElement('div');star.className='star';const x=Math.random()*100;const y=Math.random()*100;star.style.left=`${x}%`;star.style.top=`${y}%`;const size=1+Math.random()*3;star.style.width=`${size}px`;star.style.height=`${size}px`;const duration=2+Math.random()*4;const delay=Math.random()*5;star.style.animation=`twinkle ${duration}s ${delay}s ease infinite`;const hue=210+Math.random()*30;const saturation=Math.random()*50;const lightness=85+Math.random()*15;star.style.background=`hsla(${hue},${saturation}%,${lightness}%,0.7)`;star.style.boxShadow=`0 0 ${3+size}px hsla(${hue},${saturation}%,${lightness}%,0.5)`;starsContainer.appendChild(star);}}
+function rnd(n,p=2){return+n.toFixed(p);}
+let isMouseMoving=false;let timerMouseReset;document.addEventListener('mousemove',e=>{isMouseMoving=true;clearTimeout(timerMouseReset);const mainGradient=document.getElementById('mainGradient');const pulseGradient=document.getElementById('pulseGradient');const container=document.querySelector('.container');const rect=container.getBoundingClientRect();const centerX=rect.left+rect.width/2;const centerY=rect.top+rect.height/2;const dx=(e.clientX-centerX)/(rect.width/2);const dy=(e.clientY-centerY)/(rect.height/2);const m=Math.min(0.49,Math.hypot(dy,dx)*0.4);const a=Math.atan2(dy,dx);mainGradient.setAttribute('fx',rnd(0.5+m*Math.cos(a)));mainGradient.setAttribute('fy',rnd(0.5+m*Math.sin(a)));pulseGradient.setAttribute('fx',rnd(0.5-m*Math.cos(a)));pulseGradient.setAttribute('fy',rnd(0.5-m*Math.sin(a)));const orb=document.querySelector('.orb');orb.style.transform=`rotateX(${dy*-10}deg)rotateY(${dx*10}deg)`;timerMouseReset=setTimeout(()=>{isMouseMoving=false;resetOrb();},1000);});function resetOrb(){const orb=document.querySelector('.orb');orb.style.transform='';}
+function changeColors(){const randomGradient=gradients[Math.floor(Math.random()*gradients.length)];const randomGradient2=gradients[Math.floor(Math.random()*gradients.length)];const mainGradient=document.getElementById('mainGradient');const pulseGradient=document.getElementById('pulseGradient');mainGradient.querySelector('stop:nth-child(1)').setAttribute('stop-color',randomGradient[0]);mainGradient.querySelector('stop:nth-child(2)').setAttribute('stop-color',randomGradient[1]);pulseGradient.querySelector('stop:nth-child(1)').setAttribute('stop-color',randomGradient2[0]);pulseGradient.querySelector('stop:nth-child(2)').setAttribute('stop-color',randomGradient2[1]);}
+document.querySelector('.orb').addEventListener('click',changeColors);let colorInterval;function startColorCycle(){clearInterval(colorInterval);colorInterval=setInterval(()=>{if(!isMouseMoving){const randomGradient=gradients[Math.floor(Math.random()*gradients.length)];const mainGradient=document.getElementById('mainGradient');mainGradient.querySelector('stop:nth-child(1)').setAttribute('stop-color',randomGradient[0]);mainGradient.querySelector('stop:nth-child(2)').setAttribute('stop-color',randomGradient[1]);}},5000);}
+function initializeApp(){resetPageState();forceCursorNone();const observer=new MutationObserver(()=>{forceCursorNone();});observer.observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['style']});setInterval(forceCursorNone,1000);const mainGradient=document.getElementById('mainGradient');const pulseGradient=document.getElementById('pulseGradient');mainGradient.querySelector('stop:nth-child(1)').setAttribute('stop-color','#00ff54');mainGradient.querySelector('stop:nth-child(2)').setAttribute('stop-color','#00b8ba');pulseGradient.querySelector('stop:nth-child(1)').setAttribute('stop-color','#00bd56');pulseGradient.querySelector('stop:nth-child(2)').setAttribute('stop-color','#f9fd50');animateGrain();createStars();startColorCycle();}
+window.addEventListener('load',initializeApp);document.querySelectorAll('a').forEach(link=>{link.addEventListener('mouseenter',()=>{cursorBorder.style.width='40px';cursorBorder.style.height='40px';cursorBorder.style.backgroundColor='rgba(255, 255, 255, 0.1)';link.style.cursor='none';});link.addEventListener('mouseleave',()=>{cursorBorder.style.width='50px';cursorBorder.style.height='50px';cursorBorder.style.backgroundColor='transparent';});});document.querySelectorAll('.nav-dot').forEach(dot=>{dot.addEventListener('click',(e)=>{if(!dot.classList.contains('active')){document.body.style.opacity='0';}});dot.addEventListener('mouseenter',()=>{dot.style.cursor='none';});});window.addEventListener('pageshow',(e)=>{if(e.persisted){document.body.style.opacity='0';setTimeout(initializeApp,100);}else{initializeApp();}});window.addEventListener('popstate',()=>{resetPageState();document.body.style.opacity='0';setTimeout(initializeApp,50);});window.addEventListener('beforeunload',()=>{resetPageState();});</script>
+</body>
+</html>

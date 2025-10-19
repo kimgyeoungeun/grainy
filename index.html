@@ -4,7 +4,7 @@
 <meta charset=UTF-8>
 <meta name=viewport content="width=device-width, initial-scale=1.0">
 <title>Grainy</title>
-<style>@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');.bgm-hint{position:absolute;left:50%;bottom:50px;transform:translateX(-50%);font-size:1.2rem;font-weight:300;opacity:.5;text-shadow:0 0 5px rgba(0,0,0,0.8);letter-spacing:1px}@font-face{font-family:'Pretendard';src:url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Thin.woff') format('woff');font-weight:100;font-display:swap}@media(max-width:480px){.bgm-hint{bottom:50px;font-size:.8rem}}*{margin:0;padding:0;box-sizing:border-box;cursor:none!important}body{font-family:'pretendard',sans-serif;background-color:#030303;color:#fff;overflow-x:hidden;cursor:none!important;transition:opacity 1s ease;opacity:0}html{cursor:none!important}a,button,.case-item,.case-link,.case-media,.case-video,.case-image{cursor:none!important}spline-viewer{cursor:none!important}spline-viewer *{cursor:none!important}canvas{cursor:none!important}div,span,p,h1,h2,h3,h4,h5,h6{cursor:none!important}.container{width:100%;max-width:1800px;margin:0 auto;padding:0 2%}.intro-section{width:100%;height:100vh;position:relative;overflow:hidden;opacity:1;transition:opacity 2s ease;pointer-events:auto}spline-viewer{width:100%;height:100vh;display:block}.description-label{position:absolute;left:50px;bottom:50px;font-size:1.2rem;font-weight:300;opacity:.6;transition:opacity .3s ease}.click-anywhere{position:absolute;right:50px;bottom:50px;font-size:1.2rem;font-weight:300;opacity:.8;text-shadow:0 0 5px rgba(0,0,0,0.8)}.intro-description{position:absolute;bottom:90px;left:-800px;max-width:800px;text-align:left;font-weight:300;line-height:1.7;font-size:1.1rem;opacity:0;transition:left .5s ease,opacity .5s ease;text-shadow:0 0 5px rgba(0,0,0,0.8);background-color:rgba(0,0,0,0.5);padding:20px;border-radius:5px;pointer-events:none!important;border:none!important;box-shadow:none!important;outline:none!important}.intro-description.visible{left:50px;opacity:.9;border:none!important;box-shadow:none!important;outline:none!important}.intro-description,.intro-description *,.site-title{pointer-events:none!important;border:none!important;outline:none!important;box-shadow:none!important}.intro-description:hover,.intro-description *:hover,.site-title:hover{border:none!important;outline:none!important;box-shadow:none!important;background-color:rgba(0,0,0,0.5)!important;transform:none!important;filter:none!important;opacity:.9!important}.intro-description h1,.intro-description p,.intro-description h1:hover,.intro-description p:hover{border:none!important;outline:none!important;box-shadow:none!important;background:transparent!important;transform:none!important;filter:none!important}.site-title{font-size:2rem;font-weight:500;margin-bottom:.8rem;opacity:.9;border:none!important;outline:none!important;box-shadow:none!important}.cursor-dot{width:10px;height:10px;background-color:white;border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 10px 2px rgba(255,255,255,0.8)}.cursor-border{width:50px;height:50px;border:1px solid rgba(255,255,255,0.6);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s ease,height .2s ease,background-color .3s ease}.description-trigger{position:absolute;left:0;top:60%;width:600px;height:100%;z-index:10}@keyframes fadeIn{0%{opacity:0;transform:translateY(20px)}100%{opacity:.8;transform:translateY(0)}}@keyframes bounce{0%,20%,50%,80%,100%{transform:translateY(0)}40%{transform:translateY(-10px)}60%{transform:translateY(-5px)}}.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#000;opacity:0;z-index:9990;pointer-events:none;transition:opacity 1s ease}@media(max-width:480px){.intro-description{left:-100%;bottom:30px;max-width:calc(100% - 40px);font-size:.9rem}.intro-description.visible{left:20px}.site-title{font-size:1.5rem;margin-bottom:.5rem}.description-label{left:20px;bottom:30px}.click-anywhere{right:20px;bottom:30px;font-size:1rem}.description-trigger{width:80px}}</style>
+<style>@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');@font-face{font-family:'Pretendard';src:url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Thin.woff') format('woff');font-weight:100;font-display:swap}.audio-control{position:absolute;top:50px;right:50px;display:flex;flex-direction:column;align-items:flex-end;z-index:100}.audio-icon{width:24px;height:24px;cursor:none;opacity:.7;transition:opacity .3s ease;margin-bottom:8px}.audio-icon:hover{opacity:1}.audio-text{font-size:0.65rem;font-weight:300;opacity:.6;text-align:right;color:#fff;text-shadow:0 0 5px rgba(0,0,0,0.8);line-height:1.2}@media(max-width:480px){.audio-control{top:30px;right:30px}.audio-icon{width:20px;height:20px}.audio-text{font-size:0.55rem}}*{margin:0;padding:0;box-sizing:border-box;cursor:none!important}body{font-family:'pretendard',sans-serif;background-color:#030303;color:#fff;overflow-x:hidden;cursor:none!important;transition:opacity 1s ease;opacity:0}html{cursor:none!important}a,button,.case-item,.case-link,.case-media,.case-video,.case-image{cursor:none!important}spline-viewer{cursor:none!important}spline-viewer *{cursor:none!important}canvas{cursor:none!important}div,span,p,h1,h2,h3,h4,h5,h6{cursor:none!important}.container{width:100%;max-width:1800px;margin:0 auto;padding:0 2%}.intro-section{width:100%;height:100vh;position:relative;overflow:hidden;opacity:1;transition:opacity 2s ease;pointer-events:auto}spline-viewer{width:100%;height:100vh;display:block}.description-label{position:absolute;left:50px;bottom:50px;font-size:1.2rem;font-weight:300;opacity:.6;transition:opacity .3s ease}.click-anywhere{position:absolute;right:50px;bottom:50px;font-size:1.2rem;font-weight:300;opacity:.8;text-shadow:0 0 5px rgba(0,0,0,0.8)}.intro-description{position:absolute;bottom:90px;left:-800px;max-width:800px;text-align:left;font-weight:300;line-height:1.7;font-size:1.1rem;opacity:0;transition:left .5s ease,opacity .5s ease;text-shadow:0 0 5px rgba(0,0,0,0.8);background-color:rgba(0,0,0,0.5);padding:20px;border-radius:5px;pointer-events:none!important;border:none!important;box-shadow:none!important;outline:none!important}.intro-description.visible{left:50px;opacity:.9;border:none!important;box-shadow:none!important;outline:none!important}.intro-description,.intro-description *,.site-title{pointer-events:none!important;border:none!important;outline:none!important;box-shadow:none!important}.intro-description:hover,.intro-description *:hover,.site-title:hover{border:none!important;outline:none!important;box-shadow:none!important;background-color:rgba(0,0,0,0.5)!important;transform:none!important;filter:none!important;opacity:.9!important}.intro-description h1,.intro-description p,.intro-description h1:hover,.intro-description p:hover{border:none!important;outline:none!important;box-shadow:none!important;background:transparent!important;transform:none!important;filter:none!important}.site-title{font-size:2rem;font-weight:500;margin-bottom:.8rem;opacity:.9;border:none!important;outline:none!important;box-shadow:none!important}.cursor-dot{width:10px;height:10px;background-color:white;border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 10px 2px rgba(255,255,255,0.8)}.cursor-border{width:50px;height:50px;border:1px solid rgba(255,255,255,0.6);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s ease,height .2s ease,background-color .3s ease}.description-trigger{position:absolute;left:0;top:60%;width:600px;height:100%;z-index:10}@keyframes fadeIn{0%{opacity:0;transform:translateY(20px)}100%{opacity:.8;transform:translateY(0)}}@keyframes bounce{0%,20%,50%,80%,100%{transform:translateY(0)}40%{transform:translateY(-10px)}60%{transform:translateY(-5px)}}.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#000;opacity:0;z-index:9990;pointer-events:none;transition:opacity 1s ease}@media(max-width:480px){.intro-description{left:-100%;bottom:30px;max-width:calc(100% - 40px);font-size:.9rem}.intro-description.visible{left:20px}.site-title{font-size:1.5rem;margin-bottom:.5rem}.description-label{left:20px;bottom:30px}.click-anywhere{right:20px;bottom:30px;font-size:1rem}.description-trigger{width:80px}}</style>
 <script type=module src=https://unpkg.com/@splinetool/viewer@1.9.86/build/spline-viewer.js></script>
 </head>
 <body>
@@ -18,7 +18,12 @@
 <spline-viewer url=https://prod.spline.design/amQ2FEQbPTIK4-Mx/scene.splinecode></spline-viewer>
 <div class=description-trigger id=descriptionTrigger></div>
 <div class=description-label>EXPLANATION</div>
-<div class=bgm-hint>PRESS THE KEYBOARD</div>
+<div class=audio-control>
+<svg class=audio-icon id=audioIcon viewBox="0 0 24 24" fill="white">
+<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+</svg>
+<div class=audio-text>스페이스바를 누르면<br>음악이 나옵니다.</div>
+</div>
 <div class=click-anywhere>CLICK ANYWHERE</div>
 <div class=intro-description id=introDescription>
 <h1 class=site-title>Grainy</h1>
@@ -146,14 +151,20 @@ document.addEventListener('keydown', function(e) {
   if (e.code === "Space" && !isNavigating) {
     e.preventDefault(); // 기본 스크롤 방지
     
-    // BGM이 현재 정지 상태인지 확인하여 재생
     if (bgm.paused) {
-        bgm.pause(); // 혹시 모를 경우를 대비하여 다시 한번 멈춤
-        bgm.currentTime = 0; // 항상 처음부터 시작
-        bgm.play().then(() => {
-            bgmStarted = true;
-            console.log("BGM started");
-        }).catch(err => console.log("Audio play failed:", err));
+      bgm.currentTime = 0; // 항상 처음부터 시작
+      bgm.play().then(() => {
+        bgmStarted = true;
+        console.log("BGM started by spacebar");
+        // 재생 중일 때의 아이콘으로 변경
+        audioIcon.innerHTML = '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>';
+      }).catch(err => console.log("Audio play failed:", err));
+    } else {
+      bgm.pause();
+      bgmStarted = false;
+      console.log("BGM stopped by spacebar");
+      // 정지 상태일 때의 아이콘으로 변경 (음소거 아이콘)
+      audioIcon.innerHTML = '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>';
     }
   }
 });
@@ -172,9 +183,35 @@ document.addEventListener('mouseup', () => {
   }
 });
 
+// 오디오 아이콘 클릭 이벤트 추가
+const audioIcon = document.getElementById('audioIcon');
+audioIcon.addEventListener('click', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  
+  if (bgm.paused) {
+    bgm.currentTime = 0;
+    bgm.play().then(() => {
+      bgmStarted = true;
+      console.log("BGM started by icon click");
+      // 재생 중일 때의 아이콘으로 변경
+      audioIcon.innerHTML = '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>';
+    }).catch(err => console.log("Audio play failed:", err));
+  } else {
+    bgm.pause();
+    bgmStarted = false;
+    console.log("BGM stopped by icon click");
+    // 정지 상태일 때의 아이콘으로 변경 (음소거 아이콘)
+    audioIcon.innerHTML = '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>';
+  }
+});
+
 document.addEventListener('click', function(e) {
   if (isNavigating) return;
   if (e.target === descriptionTrigger || descriptionTrigger.contains(e.target)) {
+    return;
+  }
+  if (e.target === audioIcon || audioIcon.contains(e.target)) {
     return;
   }
 

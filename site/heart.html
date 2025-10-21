@@ -157,16 +157,331 @@
 <button class=selector-continue id=secondContinueBtn>감정 시각화 시작</button>
 </div>
 </div>
-<script>let firstEmotion=null;let secondEmotion=null;let currentColorVariant=0;let colorVariations=[];const cursorDot=document.querySelector('.cursor-dot');const cursorBorder=document.querySelector('.cursor-border');document.addEventListener('mousemove',(e)=>{cursorDot.style.left=e.clientX+'px';cursorDot.style.top=e.clientY+'px';setTimeout(()=>{cursorBorder.style.left=e.clientX+'px';cursorBorder.style.top=e.clientY+'px';},50);});document.addEventListener('mousedown',()=>{cursorBorder.style.width='45px';cursorBorder.style.height='45px';});document.addEventListener('mouseup',()=>{cursorBorder.style.width='50px';cursorBorder.style.height='50px';});function generateColorVariations(color1,color2,color3,color4){return[[color1,color2,color3,color4],[color3,color4,color1,color2],[color2,color1,color4,color3],[color4,color3,color2,color1]];}
-function animateGrain(){const grainOverlay=document.querySelector('.grain-overlay');let opacity=0.07;let increasing=true;setInterval(()=>{if(increasing){opacity+=0.002;if(opacity>=0.12)increasing=false;}else{opacity-=0.002;if(opacity<=0.06)increasing=true;}
-grainOverlay.style.opacity=opacity;},100);}
-function createStars(){const starsContainer=document.querySelector('.stars');const starCount=120;for(let i=0;i<starCount;i++){const star=document.createElement('div');star.className='star';const x=Math.random()*100;const y=Math.random()*100;star.style.left=`${x}%`;star.style.top=`${y}%`;const size=1+Math.random()*3;star.style.width=`${size}px`;star.style.height=`${size}px`;const duration=2+Math.random()*4;const delay=Math.random()*5;star.style.animation=`twinkle ${duration}s ${delay}s ease infinite`;const hue=210+Math.random()*30;const saturation=Math.random()*50;const lightness=85+Math.random()*15;star.style.background=`hsla(${hue},${saturation}%,${lightness}%,0.7)`;star.style.boxShadow=`0 0 ${3+size}px hsla(${hue},${saturation}%,${lightness}%,0.5)`;starsContainer.appendChild(star);}}
-function rnd(n,p=2){return+n.toFixed(p);}
-let isMouseMoving=false;let timerMouseReset;document.addEventListener('mousemove',e=>{isMouseMoving=true;clearTimeout(timerMouseReset);const mainGradient=document.getElementById('mainGradient');const pulseGradient=document.getElementById('pulseGradient');const container=document.querySelector('.container');const rect=container.getBoundingClientRect();const centerX=rect.left+rect.width/2;const centerY=rect.top+rect.height/2;const dx=(e.clientX-centerX)/(rect.width/2);const dy=(e.clientY-centerY)/(rect.height/2);const m=Math.min(0.49,Math.hypot(dy,dx)*0.4);const a=Math.atan2(dy,dx);mainGradient.setAttribute('fx',rnd(0.5+m*Math.cos(a)));mainGradient.setAttribute('fy',rnd(0.5+m*Math.sin(a)));pulseGradient.setAttribute('fx',rnd(0.5-m*Math.cos(a)));pulseGradient.setAttribute('fy',rnd(0.5-m*Math.sin(a)));const orb=document.querySelector('.orb');orb.style.transform=`rotateX(${dy*-10}deg)rotateY(${dx*10}deg)`;timerMouseReset=setTimeout(()=>{isMouseMoving=false;resetOrb();},1000);});function resetOrb(){const orb=document.querySelector('.orb');orb.style.transform='';}
-function changeColors(color1,color2,color3,color4){const mainGradient=document.getElementById('mainGradient');const pulseGradient=document.getElementById('pulseGradient');mainGradient.querySelector('stop:nth-child(1)').setAttribute('stop-color',color1);mainGradient.querySelector('stop:nth-child(2)').setAttribute('stop-color',color2);pulseGradient.querySelector('stop:nth-child(1)').setAttribute('stop-color',color3);pulseGradient.querySelector('stop:nth-child(2)').setAttribute('stop-color',color4);}
-function setupOrbClickEvent(){const orbElement=document.querySelector('.orb');orbElement.addEventListener('click',()=>{if(colorVariations.length>0){currentColorVariant=(currentColorVariant+1)%colorVariations.length;const variation=colorVariations[currentColorVariant];changeColors(variation[0],variation[1],variation[2],variation[3]);orbElement.style.transform='scale(0.98)';setTimeout(()=>{orbElement.style.transform='';},100);}});}
-const orb=document.querySelector('.orb');const firstEmotionSelector=document.getElementById('firstEmotionSelector');const firstEmotionItems=firstEmotionSelector.querySelectorAll('.emotion-item');const firstContinueBtn=document.getElementById('firstContinueBtn');firstEmotionItems.forEach(item=>{item.addEventListener('click',()=>{firstEmotionItems.forEach(el=>el.classList.remove('selected'));item.classList.add('selected');firstEmotion={name:item.getAttribute('data-emotion'),colors:item.getAttribute('data-colors').split(',')};firstContinueBtn.classList.add('active');});});const secondEmotionSelector=document.getElementById('secondEmotionSelector');const secondEmotionItems=secondEmotionSelector.querySelectorAll('.emotion-item');const secondContinueBtn=document.getElementById('secondContinueBtn');secondEmotionItems.forEach(item=>{item.addEventListener('click',()=>{secondEmotionItems.forEach(el=>el.classList.remove('selected'));item.classList.add('selected');secondEmotion={name:item.getAttribute('data-emotion'),colors:item.getAttribute('data-colors').split(',')};secondContinueBtn.classList.add('active');});});firstContinueBtn.addEventListener('click',()=>{if(firstEmotion){firstEmotionSelector.classList.add('fade-out');setTimeout(()=>{firstEmotionSelector.style.display='none';secondEmotionSelector.style.display='flex';setTimeout(()=>{secondEmotionSelector.classList.add('fade-in');},300);},800);}});secondContinueBtn.addEventListener('click',()=>{if(secondEmotion){secondEmotionSelector.classList.add('fade-out');setTimeout(()=>{secondEmotionSelector.style.display='none';const color1=firstEmotion.colors[0];const color2=secondEmotion.colors[0];const color3=firstEmotion.colors[1];const color4=secondEmotion.colors[1];colorVariations=generateColorVariations(color1,color2,color3,color4);changeColors(color1,color2,color3,color4);setupOrbClickEvent();const interactionGuide=document.getElementById('interactionGuide');interactionGuide.style.display='block';const emotion1Name=getEmotionNameKorean(firstEmotion.name);const emotion2Name=getEmotionNameKorean(secondEmotion.name);const footerText=document.querySelector('.footer-text');footerText.innerHTML=`${emotion1Name}와(과)${emotion2Name}의 조합을 시각화하였습니다.`;const orbElement=document.querySelector('.orb');orbElement.style.opacity='0';setTimeout(()=>{orbElement.classList.add('fade-in');},300);},800);}});function getEmotionNameKorean(emotionName){const emotionMap={'joy':'기쁨','sadness':'슬픔','anger':'분노','fear':'두려움','love':'사랑','surprise':'놀람','disgust':'혐오','neutral':'중립'};return emotionMap[emotionName]||emotionName;}
-window.addEventListener('load',()=>{animateGrain();createStars();const orbElement=document.querySelector('.orb');orbElement.style.opacity='0';setTimeout(()=>{firstEmotionSelector.classList.add('fade-in');},300);});document.querySelectorAll('.emotion-item, .selector-continue').forEach(item=>{item.addEventListener('mouseenter',()=>{cursorBorder.style.width='60px';cursorBorder.style.height='60px';cursorDot.style.width='12px';cursorDot.style.height='12px';});item.addEventListener('mouseleave',()=>{cursorBorder.style.width='50px';cursorBorder.style.height='50px';cursorDot.style.width='10px';cursorDot.style.height='10px';});});orb.addEventListener('mouseenter',()=>{cursorDot.style.width='15px';cursorDot.style.height='15px';cursorDot.style.transition='width 0.3s, height 0.3s';cursorBorder.style.width='60px';cursorBorder.style.height='60px';});orb.addEventListener('mouseleave',()=>{cursorDot.style.width='10px';cursorDot.style.height='10px';cursorBorder.style.width='50px';cursorBorder.style.height='50px';});document.querySelectorAll('.selector-continue.active').forEach(button=>{button.addEventListener('mouseenter',()=>{cursorBorder.style.width='70px';cursorBorder.style.height='70px';cursorDot.style.background='white';});button.addEventListener('mouseleave',()=>{cursorBorder.style.width='50px';cursorBorder.style.height='50px';cursorDot.style.background='white';});});document.querySelectorAll('a').forEach(link=>{link.addEventListener('mouseenter',()=>{cursorBorder.style.width='40px';cursorBorder.style.height='40px';cursorBorder.style.backgroundColor='rgba(255, 255, 255, 0.1)';});link.addEventListener('mouseleave',()=>{cursorBorder.style.width='50px';cursorBorder.style.height='50px';cursorBorder.style.backgroundColor='transparent';});});document.querySelectorAll('.nav-dot').forEach(dot=>{dot.addEventListener('click',(e)=>{if(!dot.classList.contains('active')){document.body.style.opacity='0';}});});function forceCursorNone(){const elements=document.querySelectorAll('*');elements.forEach(el=>{el.style.setProperty('cursor','none','important');});}
-const observer=new MutationObserver(()=>{forceCursorNone();});observer.observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['style','class']});setInterval(forceCursorNone,1000);forceCursorNone();</script>
+<script>
+let firstEmotion = null;
+let secondEmotion = null;
+let currentColorVariant = 0;
+let colorVariations = [];
+let isVisualizationActive = false;  // ✅ 시각화 구간 여부
+let spaceDown = false;              // ✅ 스페이스바 디바운스
+
+const cursorDot = document.querySelector('.cursor-dot');
+const cursorBorder = document.querySelector('.cursor-border');
+
+document.addEventListener('mousemove', (e) => {
+  cursorDot.style.left = e.clientX + 'px';
+  cursorDot.style.top = e.clientY + 'px';
+  setTimeout(() => {
+    cursorBorder.style.left = e.clientX + 'px';
+    cursorBorder.style.top = e.clientY + 'px';
+  }, 50);
+});
+
+document.addEventListener('mousedown', () => {
+  cursorBorder.style.width = '45px';
+  cursorBorder.style.height = '45px';
+});
+document.addEventListener('mouseup', () => {
+  cursorBorder.style.width = '50px';
+  cursorBorder.style.height = '50px';
+});
+
+function generateColorVariations(color1, color2, color3, color4) {
+  return [
+    [color1, color2, color3, color4],
+    [color3, color4, color1, color2],
+    [color2, color1, color4, color3],
+    [color4, color3, color2, color1]
+  ];
+}
+
+function animateGrain() {
+  const grainOverlay = document.querySelector('.grain-overlay');
+  let opacity = 0.07;
+  let increasing = true;
+  setInterval(() => {
+    if (increasing) {
+      opacity += 0.002;
+      if (opacity >= 0.12) increasing = false;
+    } else {
+      opacity -= 0.002;
+      if (opacity <= 0.06) increasing = true;
+    }
+    grainOverlay.style.opacity = opacity;
+  }, 100);
+}
+
+function createStars() {
+  const starsContainer = document.querySelector('.stars');
+  const starCount = 120;
+  for (let i = 0; i < starCount; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const x = Math.random() * 100;
+    const y = Math.random() * 100;
+    star.style.left = `${x}%`;
+    star.style.top = `${y}%`;
+    const size = 1 + Math.random() * 3;
+    star.style.width = `${size}px`;
+    star.style.height = `${size}px`;
+    const duration = 2 + Math.random() * 4;
+    const delay = Math.random() * 5;
+    star.style.animation = `twinkle ${duration}s ${delay}s ease infinite`;
+    const hue = 210 + Math.random() * 30;
+    const saturation = Math.random() * 50;
+    const lightness = 85 + Math.random() * 15;
+    star.style.background = `hsla(${hue},${saturation}%,${lightness}%,0.7)`;
+    star.style.boxShadow = `0 0 ${3 + size}px hsla(${hue},${saturation}%,${lightness}%,0.5)`;
+    starsContainer.appendChild(star);
+  }
+}
+
+function rnd(n, p = 2) { return +n.toFixed(p); }
+
+let isMouseMoving = false;
+let timerMouseReset;
+
+document.addEventListener('mousemove', e => {
+  isMouseMoving = true;
+  clearTimeout(timerMouseReset);
+  const mainGradient = document.getElementById('mainGradient');
+  const pulseGradient = document.getElementById('pulseGradient');
+  const container = document.querySelector('.container');
+  const rect = container.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+  const dx = (e.clientX - centerX) / (rect.width / 2);
+  const dy = (e.clientY - centerY) / (rect.height / 2);
+  const m = Math.min(0.49, Math.hypot(dy, dx) * 0.4);
+  const a = Math.atan2(dy, dx);
+  mainGradient.setAttribute('fx', rnd(0.5 + m * Math.cos(a)));
+  mainGradient.setAttribute('fy', rnd(0.5 + m * Math.sin(a)));
+  pulseGradient.setAttribute('fx', rnd(0.5 - m * Math.cos(a)));
+  pulseGradient.setAttribute('fy', rnd(0.5 - m * Math.sin(a)));
+  const orb = document.querySelector('.orb');
+  orb.style.transform = `rotateX(${dy * -10}deg)rotateY(${dx * 10}deg)`;
+  timerMouseReset = setTimeout(() => {
+    isMouseMoving = false;
+    resetOrb();
+  }, 1000);
+});
+
+function resetOrb() {
+  const orb = document.querySelector('.orb');
+  orb.style.transform = '';
+}
+
+function changeColors(color1, color2, color3, color4) {
+  const mainGradient = document.getElementById('mainGradient');
+  const pulseGradient = document.getElementById('pulseGradient');
+  mainGradient.querySelector('stop:nth-child(1)').setAttribute('stop-color', color1);
+  mainGradient.querySelector('stop:nth-child(2)').setAttribute('stop-color', color2);
+  pulseGradient.querySelector('stop:nth-child(1)').setAttribute('stop-color', color3);
+  pulseGradient.querySelector('stop:nth-child(2)').setAttribute('stop-color', color4);
+}
+
+function setupOrbClickEvent() {
+  const orbElement = document.querySelector('.orb');
+  orbElement.addEventListener('click', () => {
+    if (colorVariations.length > 0) {
+      currentColorVariant = (currentColorVariant + 1) % colorVariations.length;
+      const variation = colorVariations[currentColorVariant];
+      changeColors(variation[0], variation[1], variation[2], variation[3]);
+      orbElement.style.transform = 'scale(0.98)';
+      setTimeout(() => { orbElement.style.transform = ''; }, 100);
+    }
+  });
+}
+
+// ✅ 스페이스바로 색 조합 넘기기 (시각화 단계에서만 작동)
+window.addEventListener('keydown', (e) => {
+  if ((e.code === 'Space' || e.key === ' ' || e.key === 'Spacebar') && !spaceDown) {
+    if (isVisualizationActive && colorVariations.length > 0) {
+      e.preventDefault(); // 여백 스크롤/버튼 기본 동작 방지
+      spaceDown = true;
+      currentColorVariant = (currentColorVariant + 1) % colorVariations.length;
+      const variation = colorVariations[currentColorVariant];
+      changeColors(variation[0], variation[1], variation[2], variation[3]);
+      const orbElement = document.querySelector('.orb');
+      orbElement.style.transform = 'scale(0.98)';
+      setTimeout(() => { orbElement.style.transform = ''; }, 100);
+    }
+  }
+});
+
+window.addEventListener('keyup', (e) => {
+  if (e.code === 'Space' || e.key === ' ' || e.key === 'Spacebar') {
+    spaceDown = false;
+  }
+});
+
+const orb = document.querySelector('.orb');
+
+const firstEmotionSelector = document.getElementById('firstEmotionSelector');
+const firstEmotionItems = firstEmotionSelector.querySelectorAll('.emotion-item');
+const firstContinueBtn = document.getElementById('firstContinueBtn');
+
+firstEmotionItems.forEach(item => {
+  item.addEventListener('click', () => {
+    firstEmotionItems.forEach(el => el.classList.remove('selected'));
+    item.classList.add('selected');
+    firstEmotion = {
+      name: item.getAttribute('data-emotion'),
+      colors: item.getAttribute('data-colors').split(',')
+    };
+    firstContinueBtn.classList.add('active');
+  });
+});
+
+const secondEmotionSelector = document.getElementById('secondEmotionSelector');
+const secondEmotionItems = secondEmotionSelector.querySelectorAll('.emotion-item');
+const secondContinueBtn = document.getElementById('secondContinueBtn');
+
+secondEmotionItems.forEach(item => {
+  item.addEventListener('click', () => {
+    secondEmotionItems.forEach(el => el.classList.remove('selected'));
+    item.classList.add('selected');
+    secondEmotion = {
+      name: item.getAttribute('data-emotion'),
+      colors: item.getAttribute('data-colors').split(',')
+    };
+    secondContinueBtn.classList.add('active');
+  });
+});
+
+firstContinueBtn.addEventListener('click', () => {
+  if (firstEmotion) {
+    firstEmotionSelector.classList.add('fade-out');
+    setTimeout(() => {
+      firstEmotionSelector.style.display = 'none';
+      secondEmotionSelector.style.display = 'flex';
+      setTimeout(() => { secondEmotionSelector.classList.add('fade-in'); }, 300);
+    }, 800);
+  }
+});
+
+secondContinueBtn.addEventListener('click', () => {
+  if (secondEmotion) {
+    secondEmotionSelector.classList.add('fade-out');
+    setTimeout(() => {
+      secondEmotionSelector.style.display = 'none';
+
+      // 초기 조합 계산
+      const color1 = firstEmotion.colors[0];
+      const color2 = secondEmotion.colors[0];
+      const color3 = firstEmotion.colors[1];
+      const color4 = secondEmotion.colors[1];
+
+      colorVariations = generateColorVariations(color1, color2, color3, color4);
+      currentColorVariant = 0;
+      changeColors(color1, color2, color3, color4);
+
+      setupOrbClickEvent();               // 클릭으로도 전환
+      isVisualizationActive = true;       // ✅ 시각화 단계 시작
+
+      const interactionGuide = document.getElementById('interactionGuide');
+      interactionGuide.style.display = 'block';
+
+      const emotion1Name = getEmotionNameKorean(firstEmotion.name);
+      const emotion2Name = getEmotionNameKorean(secondEmotion.name);
+      const footerText = document.querySelector('.footer-text');
+      footerText.innerHTML = `${emotion1Name}와(과) ${emotion2Name}의 조합을 시각화하였습니다.`;
+
+      const orbElement = document.querySelector('.orb');
+      orbElement.style.opacity = '0';
+      setTimeout(() => { orbElement.classList.add('fade-in'); }, 300);
+    }, 800);
+  }
+});
+
+function getEmotionNameKorean(emotionName) {
+  const emotionMap = {
+    'joy': '기쁨', 'sadness': '슬픔', 'anger': '분노', 'fear': '두려움',
+    'love': '사랑', 'surprise': '놀람', 'disgust': '혐오', 'neutral': '중립'
+  };
+  return emotionMap[emotionName] || emotionName;
+}
+
+window.addEventListener('load', () => {
+  animateGrain();
+  createStars();
+  const orbElement = document.querySelector('.orb');
+  orbElement.style.opacity = '0';
+  setTimeout(() => { firstEmotionSelector.classList.add('fade-in'); }, 300);
+});
+
+document.querySelectorAll('.emotion-item, .selector-continue').forEach(item => {
+  item.addEventListener('mouseenter', () => {
+    cursorBorder.style.width = '60px';
+    cursorBorder.style.height = '60px';
+    cursorDot.style.width = '12px';
+    cursorDot.style.height = '12px';
+  });
+  item.addEventListener('mouseleave', () => {
+    cursorBorder.style.width = '50px';
+    cursorBorder.style.height = '50px';
+    cursorDot.style.width = '10px';
+    cursorDot.style.height = '10px';
+  });
+});
+
+orb.addEventListener('mouseenter', () => {
+  cursorDot.style.width = '15px';
+  cursorDot.style.height = '15px';
+  cursorDot.style.transition = 'width 0.3s, height 0.3s';
+  cursorBorder.style.width = '60px';
+  cursorBorder.style.height = '60px';
+});
+orb.addEventListener('mouseleave', () => {
+  cursorDot.style.width = '10px';
+  cursorDot.style.height = '10px';
+  cursorBorder.style.width = '50px';
+  cursorBorder.style.height = '50px';
+});
+
+document.querySelectorAll('.selector-continue.active').forEach(button => {
+  button.addEventListener('mouseenter', () => {
+    cursorBorder.style.width = '70px';
+    cursorBorder.style.height = '70px';
+    cursorDot.style.background = 'white';
+  });
+  button.addEventListener('mouseleave', () => {
+    cursorBorder.style.width = '50px';
+    cursorBorder.style.height = '50px';
+    cursorDot.style.background = 'white';
+  });
+});
+
+document.querySelectorAll('a').forEach(link => {
+  link.addEventListener('mouseenter', () => {
+    cursorBorder.style.width = '40px';
+    cursorBorder.style.height = '40px';
+    cursorBorder.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+  });
+  link.addEventListener('mouseleave', () => {
+    cursorBorder.style.width = '50px';
+    cursorBorder.style.height = '50px';
+    cursorBorder.style.backgroundColor = 'transparent';
+  });
+});
+
+document.querySelectorAll('.nav-dot').forEach(dot => {
+  dot.addEventListener('click', (e) => {
+    if (!dot.classList.contains('active')) {
+      document.body.style.opacity = '0';
+    }
+  });
+});
+
+function forceCursorNone() {
+  const elements = document.querySelectorAll('*');
+  elements.forEach(el => { el.style.setProperty('cursor', 'none', 'important'); });
+}
+
+const observer = new MutationObserver(() => { forceCursorNone(); });
+observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'class'] });
+setInterval(forceCursorNone, 1000);
+forceCursorNone();
+</script>
 </body>
 </html>

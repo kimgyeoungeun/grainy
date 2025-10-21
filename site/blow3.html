@@ -92,17 +92,228 @@
 <div class=footer-text>
 우리의 다중적인 감정을 시각화 하였습니다.
 </div>
-<script>function resetPageState(){const cursorDot=document.querySelector('.cursor-dot');const cursorBorder=document.querySelector('.cursor-border');if(cursorDot){cursorDot.style.opacity='1';}
-if(cursorBorder){cursorBorder.style.opacity='1';}}
-function forceCursorNone(){const allElements=document.querySelectorAll('*');allElements.forEach(el=>{el.style.cursor='none';});}
-const gradients=[['#92FFC0','#002661'],['#F0DA4B','#FF005E'],['#ff661b','#ffcf1b'],['#f630a0','#ff9897'],['#e65eab','#7bf2e9'],['#FF3CAC','#562B7C'],['#6A5ACD','#FF6347'],['#ee4d5f','#ffcda5'],['#00ff54','#00b8ba'],['#FF1493','#1E90FF'],['#FFF6B7','#F6416C'],['#ff6cab','#7366ff'],['#6424f0','#6ee2f5'],['#8A2BE2','#FF4500'],['#FFF886','#F072B6'],['#8441a4','#ff5b94'],['#47C3FD','#950ECE'],['#9400D3','#00FF7F'],['#F9C1EB','#A991D3'],['#8a64eb','#64e8de'],['#7d77ff','#ff9482'],['#f869d5','#5650de'],['#F1CA74','#A64DB6'],['#00bd56','#f9fd50'],['#113035','#F3A332'],['#FFD26F','#3677FF'],['#3499ff','#3a3985'],['#FFDB01','#0E197D'],['#FFF6B7','#F6416C'],['#2e8de1','#b65eba'],['#8B008B','#00CED1'],['#F05F57','#360940'],['#BA55D3','#20B2AA'],['#9932CC','#7FCDBB'],['#FFF6B7','#0E197D'],['#9370DB','#F0E68C'],['#580C4A','#C68CAF'],['#8A4FFF','#4B0082']];const cursorDot=document.querySelector('.cursor-dot');const cursorBorder=document.querySelector('.cursor-border');document.addEventListener('mousemove',(e)=>{cursorDot.style.left=e.clientX+'px';cursorDot.style.top=e.clientY+'px';document.body.style.cursor='none';if(e.target)e.target.style.cursor='none';setTimeout(()=>{cursorBorder.style.left=e.clientX+'px';cursorBorder.style.top=e.clientY+'px';},50);});document.addEventListener('mousedown',()=>{cursorBorder.style.width='45px';cursorBorder.style.height='45px';});document.addEventListener('mouseup',()=>{cursorBorder.style.width='50px';cursorBorder.style.height='50px';});function animateGrain(){const grainOverlay=document.querySelector('.grain-overlay');let opacity=0.07;let increasing=true;setInterval(()=>{if(increasing){opacity+=0.002;if(opacity>=0.12)increasing=false;}else{opacity-=0.002;if(opacity<=0.06)increasing=true;}
-grainOverlay.style.opacity=opacity;},100);}
-function createStars(){const starsContainer=document.querySelector('.stars');const starCount=120;for(let i=0;i<starCount;i++){const star=document.createElement('div');star.className='star';const x=Math.random()*100;const y=Math.random()*100;star.style.left=`${x}%`;star.style.top=`${y}%`;const size=1+Math.random()*3;star.style.width=`${size}px`;star.style.height=`${size}px`;const duration=2+Math.random()*4;const delay=Math.random()*5;star.style.animation=`twinkle ${duration}s ${delay}s ease infinite`;const hue=210+Math.random()*30;const saturation=Math.random()*50;const lightness=85+Math.random()*15;star.style.background=`hsla(${hue},${saturation}%,${lightness}%,0.7)`;star.style.boxShadow=`0 0 ${3+size}px hsla(${hue},${saturation}%,${lightness}%,0.5)`;starsContainer.appendChild(star);}}
-function rnd(n,p=2){return+n.toFixed(p);}
-let isMouseMoving=false;let timerMouseReset;document.addEventListener('mousemove',e=>{isMouseMoving=true;clearTimeout(timerMouseReset);const mainGradient=document.getElementById('mainGradient');const pulseGradient=document.getElementById('pulseGradient');const container=document.querySelector('.container');const rect=container.getBoundingClientRect();const centerX=rect.left+rect.width/2;const centerY=rect.top+rect.height/2;const dx=(e.clientX-centerX)/(rect.width/2);const dy=(e.clientY-centerY)/(rect.height/2);const m=Math.min(0.49,Math.hypot(dy,dx)*0.4);const a=Math.atan2(dy,dx);mainGradient.setAttribute('fx',rnd(0.5+m*Math.cos(a)));mainGradient.setAttribute('fy',rnd(0.5+m*Math.sin(a)));pulseGradient.setAttribute('fx',rnd(0.5-m*Math.cos(a)));pulseGradient.setAttribute('fy',rnd(0.5-m*Math.sin(a)));const orb=document.querySelector('.orb');orb.style.transform=`rotateX(${dy*-10}deg)rotateY(${dx*10}deg)`;timerMouseReset=setTimeout(()=>{isMouseMoving=false;resetOrb();},1000);});function resetOrb(){const orb=document.querySelector('.orb');orb.style.transform='';}
-function changeColors(){const randomGradient=gradients[Math.floor(Math.random()*gradients.length)];const randomGradient2=gradients[Math.floor(Math.random()*gradients.length)];const mainGradient=document.getElementById('mainGradient');const pulseGradient=document.getElementById('pulseGradient');mainGradient.querySelector('stop:nth-child(1)').setAttribute('stop-color',randomGradient[0]);mainGradient.querySelector('stop:nth-child(2)').setAttribute('stop-color',randomGradient[1]);pulseGradient.querySelector('stop:nth-child(1)').setAttribute('stop-color',randomGradient2[0]);pulseGradient.querySelector('stop:nth-child(2)').setAttribute('stop-color',randomGradient2[1]);}
-document.querySelector('.orb').addEventListener('click',changeColors);let colorInterval;function startColorCycle(){clearInterval(colorInterval);colorInterval=setInterval(()=>{if(!isMouseMoving){const randomGradient=gradients[Math.floor(Math.random()*gradients.length)];const mainGradient=document.getElementById('mainGradient');mainGradient.querySelector('stop:nth-child(1)').setAttribute('stop-color',randomGradient[0]);mainGradient.querySelector('stop:nth-child(2)').setAttribute('stop-color',randomGradient[1]);}},5000);}
-function initializeApp(){resetPageState();forceCursorNone();const observer=new MutationObserver(()=>{forceCursorNone();});observer.observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['style']});setInterval(forceCursorNone,1000);const mainGradient=document.getElementById('mainGradient');const pulseGradient=document.getElementById('pulseGradient');mainGradient.querySelector('stop:nth-child(1)').setAttribute('stop-color','#00ff54');mainGradient.querySelector('stop:nth-child(2)').setAttribute('stop-color','#00b8ba');pulseGradient.querySelector('stop:nth-child(1)').setAttribute('stop-color','#00bd56');pulseGradient.querySelector('stop:nth-child(2)').setAttribute('stop-color','#f9fd50');animateGrain();createStars();startColorCycle();}
-window.addEventListener('load',initializeApp);document.querySelectorAll('a').forEach(link=>{link.addEventListener('mouseenter',()=>{cursorBorder.style.width='40px';cursorBorder.style.height='40px';cursorBorder.style.backgroundColor='rgba(255, 255, 255, 0.1)';link.style.cursor='none';});link.addEventListener('mouseleave',()=>{cursorBorder.style.width='50px';cursorBorder.style.height='50px';cursorBorder.style.backgroundColor='transparent';});});document.querySelectorAll('.nav-dot').forEach(dot=>{dot.addEventListener('click',(e)=>{if(!dot.classList.contains('active')){document.body.style.opacity='0';}});dot.addEventListener('mouseenter',()=>{dot.style.cursor='none';});});window.addEventListener('pageshow',(e)=>{if(e.persisted){document.body.style.opacity='0';setTimeout(initializeApp,100);}else{initializeApp();}});window.addEventListener('popstate',()=>{resetPageState();document.body.style.opacity='0';setTimeout(initializeApp,50);});window.addEventListener('beforeunload',()=>{resetPageState();});</script>
+<script>
+function resetPageState() {
+  const cursorDot = document.querySelector('.cursor-dot');
+  const cursorBorder = document.querySelector('.cursor-border');
+  if (cursorDot) cursorDot.style.opacity = '1';
+  if (cursorBorder) cursorBorder.style.opacity = '1';
+}
+
+function forceCursorNone() {
+  const allElements = document.querySelectorAll('*');
+  allElements.forEach(el => { el.style.cursor = 'none'; });
+}
+
+const gradients = [
+  ['#92FFC0','#002661'],['#F0DA4B','#FF005E'],['#ff661b','#ffcf1b'],['#f630a0','#ff9897'],
+  ['#e65eab','#7bf2e9'],['#FF3CAC','#562B7C'],['#6A5ACD','#FF6347'],['#ee4d5f','#ffcda5'],
+  ['#00ff54','#00b8ba'],['#FF1493','#1E90FF'],['#FFF6B7','#F6416C'],['#ff6cab','#7366ff'],
+  ['#6424f0','#6ee2f5'],['#8A2BE2','#FF4500'],['#FFF886','#F072B6'],['#8441a4','#ff5b94'],
+  ['#47C3FD','#950ECE'],['#9400D3','#00FF7F'],['#F9C1EB','#A991D3'],['#8a64eb','#64e8de'],
+  ['#7d77ff','#ff9482'],['#f869d5','#5650de'],['#F1CA74','#A64DB6'],['#00bd56','#f9fd50'],
+  ['#113035','#F3A332'],['#FFD26F','#3677FF'],['#3499ff','#3a3985'],['#FFDB01','#0E197D'],
+  ['#FFF6B7','#F6416C'],['#2e8de1','#b65eba'],['#8B008B','#00CED1'],['#F05F57','#360940'],
+  ['#BA55D3','#20B2AA'],['#9932CC','#7FCDBB'],['#FFF6B7','#0E197D'],['#9370DB','#F0E68C'],
+  ['#580C4A','#C68CAF'],['#8A4FFF','#4B0082']
+];
+
+const cursorDot = document.querySelector('.cursor-dot');
+const cursorBorder = document.querySelector('.cursor-border');
+
+document.addEventListener('mousemove', (e) => {
+  cursorDot.style.left = e.clientX + 'px';
+  cursorDot.style.top = e.clientY + 'px';
+  document.body.style.cursor = 'none';
+  if (e.target) e.target.style.cursor = 'none';
+  setTimeout(() => {
+    cursorBorder.style.left = e.clientX + 'px';
+    cursorBorder.style.top = e.clientY + 'px';
+  }, 50);
+});
+
+document.addEventListener('mousedown', () => {
+  cursorBorder.style.width = '45px';
+  cursorBorder.style.height = '45px';
+});
+document.addEventListener('mouseup', () => {
+  cursorBorder.style.width = '50px';
+  cursorBorder.style.height = '50px';
+});
+
+function animateGrain() {
+  const grainOverlay = document.querySelector('.grain-overlay');
+  let opacity = 0.07;
+  let increasing = true;
+  setInterval(() => {
+    if (increasing) {
+      opacity += 0.002;
+      if (opacity >= 0.12) increasing = false;
+    } else {
+      opacity -= 0.002;
+      if (opacity <= 0.06) increasing = true;
+    }
+    grainOverlay.style.opacity = opacity;
+  }, 100);
+}
+
+function createStars() {
+  const starsContainer = document.querySelector('.stars');
+  const starCount = 120;
+  for (let i = 0; i < starCount; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const x = Math.random() * 100;
+    const y = Math.random() * 100;
+    star.style.left = `${x}%`;
+    star.style.top = `${y}%`;
+    const size = 1 + Math.random() * 3;
+    star.style.width = `${size}px`;
+    star.style.height = `${size}px`;
+    const duration = 2 + Math.random() * 4;
+    const delay = Math.random() * 5;
+    star.style.animation = `twinkle ${duration}s ${delay}s ease infinite`;
+    const hue = 210 + Math.random() * 30;
+    const saturation = Math.random() * 50;
+    const lightness = 85 + Math.random() * 15;
+    star.style.background = `hsla(${hue},${saturation}%,${lightness}%,0.7)`;
+    star.style.boxShadow = `0 0 ${3 + size}px hsla(${hue},${saturation}%,${lightness}%,0.5)`;
+    starsContainer.appendChild(star);
+  }
+}
+
+function rnd(n, p = 2) { return +n.toFixed(p); }
+
+let isMouseMoving = false;
+let timerMouseReset;
+
+document.addEventListener('mousemove', e => {
+  isMouseMoving = true;
+  clearTimeout(timerMouseReset);
+  const mainGradient = document.getElementById('mainGradient');
+  const pulseGradient = document.getElementById('pulseGradient');
+  const container = document.querySelector('.container');
+  const rect = container.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+  const dx = (e.clientX - centerX) / (rect.width / 2);
+  const dy = (e.clientY - centerY) / (rect.height / 2);
+  const m = Math.min(0.49, Math.hypot(dy, dx) * 0.4);
+  const a = Math.atan2(dy, dx);
+  mainGradient.setAttribute('fx', rnd(0.5 + m * Math.cos(a)));
+  mainGradient.setAttribute('fy', rnd(0.5 + m * Math.sin(a)));
+  pulseGradient.setAttribute('fx', rnd(0.5 - m * Math.cos(a)));
+  pulseGradient.setAttribute('fy', rnd(0.5 - m * Math.sin(a)));
+  const orb = document.querySelector('.orb');
+  orb.style.transform = `rotateX(${dy * -10}deg) rotateY(${dx * 10}deg)`;
+  timerMouseReset = setTimeout(() => { isMouseMoving = false; resetOrb(); }, 1000);
+});
+
+function resetOrb() {
+  const orb = document.querySelector('.orb');
+  orb.style.transform = '';
+}
+
+function changeColors() {
+  const randomGradient = gradients[Math.floor(Math.random() * gradients.length)];
+  const randomGradient2 = gradients[Math.floor(Math.random() * gradients.length)];
+  const mainGradient = document.getElementById('mainGradient');
+  const pulseGradient = document.getElementById('pulseGradient');
+  mainGradient.querySelector('stop:nth-child(1)').setAttribute('stop-color', randomGradient[0]);
+  mainGradient.querySelector('stop:nth-child(2)').setAttribute('stop-color', randomGradient[1]);
+  pulseGradient.querySelector('stop:nth-child(1)').setAttribute('stop-color', randomGradient2[0]);
+  pulseGradient.querySelector('stop:nth-child(2)').setAttribute('stop-color', randomGradient2[1]);
+}
+
+// ✅ 클릭 및 스페이스바로 색상 변경
+document.querySelector('.orb').addEventListener('click', changeColors);
+let spaceDown = false;
+window.addEventListener('keydown', (e) => {
+  if ((e.code === 'Space' || e.key === ' ' || e.key === 'Spacebar') && !spaceDown) {
+    e.preventDefault();
+    spaceDown = true;
+    changeColors();
+  }
+});
+window.addEventListener('keyup', (e) => {
+  if (e.code === 'Space' || e.key === ' ' || e.key === 'Spacebar') {
+    spaceDown = false;
+  }
+});
+
+let colorInterval;
+function startColorCycle() {
+  clearInterval(colorInterval);
+  colorInterval = setInterval(() => {
+    if (!isMouseMoving) {
+      const randomGradient = gradients[Math.floor(Math.random() * gradients.length)];
+      const mainGradient = document.getElementById('mainGradient');
+      mainGradient.querySelector('stop:nth-child(1)').setAttribute('stop-color', randomGradient[0]);
+      mainGradient.querySelector('stop:nth-child(2)').setAttribute('stop-color', randomGradient[1]);
+    }
+  }, 5000);
+}
+
+function initializeApp() {
+  resetPageState();
+  forceCursorNone();
+  const observer = new MutationObserver(() => { forceCursorNone(); });
+  observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] });
+  setInterval(forceCursorNone, 1000);
+
+  const mainGradient = document.getElementById('mainGradient');
+  const pulseGradient = document.getElementById('pulseGradient');
+  mainGradient.querySelector('stop:nth-child(1)').setAttribute('stop-color', '#00ff54');
+  mainGradient.querySelector('stop:nth-child(2)').setAttribute('stop-color', '#00b8ba');
+  pulseGradient.querySelector('stop:nth-child(1)').setAttribute('stop-color', '#00bd56');
+  pulseGradient.querySelector('stop:nth-child(2)').setAttribute('stop-color', '#f9fd50');
+
+  animateGrain();
+  createStars();
+  startColorCycle();
+}
+
+window.addEventListener('load', initializeApp);
+
+document.querySelectorAll('a').forEach(link => {
+  link.addEventListener('mouseenter', () => {
+    cursorBorder.style.width = '40px';
+    cursorBorder.style.height = '40px';
+    cursorBorder.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+    link.style.cursor = 'none';
+  });
+  link.addEventListener('mouseleave', () => {
+    cursorBorder.style.width = '50px';
+    cursorBorder.style.height = '50px';
+    cursorBorder.style.backgroundColor = 'transparent';
+  });
+});
+
+document.querySelectorAll('.nav-dot').forEach(dot => {
+  dot.addEventListener('click', (e) => {
+    if (!dot.classList.contains('active')) {
+      document.body.style.opacity = '0';
+    }
+  });
+  dot.addEventListener('mouseenter', () => { dot.style.cursor = 'none'; });
+});
+
+window.addEventListener('pageshow', (e) => {
+  if (e.persisted) {
+    document.body.style.opacity = '0';
+    setTimeout(initializeApp, 100);
+  } else {
+    initializeApp();
+  }
+});
+
+window.addEventListener('popstate', () => {
+  resetPageState();
+  document.body.style.opacity = '0';
+  setTimeout(initializeApp, 50);
+});
+
+window.addEventListener('beforeunload', () => { resetPageState(); });
+</script>
 </body>
 </html>
